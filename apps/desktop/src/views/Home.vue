@@ -5,7 +5,7 @@ import { useFilePicker } from '@/composables/useFilePicker'
 import { usePdfStore } from '@/stores/pdf'
 
 const router = useRouter()
-const { pickFile } = useFilePicker()
+const { pickFile, isLoading, error } = useFilePicker()
 const pdfStore = usePdfStore()
 const isDragging = ref(false)
 
@@ -19,25 +19,37 @@ const quickActions = [
 ]
 
 async function openFile() {
+  console.log('openFile called')
+  
   try {
     const result = await pickFile({
       multiple: false,
       filters: [
         { name: 'PDF', extensions: ['pdf'] },
-        { name: 'All Files', extensions: ['*'] },
       ],
     })
+    
+    console.log('pickFile result:', result)
+    console.log('isLoading:', isLoading.value)
+    console.log('error:', error.value)
+    
     if (result) {
+      console.log('File selected:', result.name, result.file ? '(has file object)' : '(no file object)')
+      
       if (result.file) {
         pdfStore.setFile(result.file, result.name)
+        console.log('Navigating to editor with web mode')
         router.push({ path: '/editor', query: { mode: 'web' } })
       } else {
         pdfStore.setFile(null, result.path)
+        console.log('Navigating to editor with path:', result.path)
         router.push({ path: '/editor', query: { file: result.path } })
       }
+    } else {
+      console.log('No file selected or picker cancelled')
     }
-  } catch (error) {
-    console.error('Failed to open file:', error)
+  } catch (err) {
+    console.error('Failed to open file:', err)
   }
 }
 
@@ -54,6 +66,8 @@ function handleDrop(e: DragEvent) {
   e.preventDefault()
   isDragging.value = false
   const files = e.dataTransfer?.files
+  console.log('Dropped files:', files)
+  
   if (files && files.length > 0) {
     const file = files[0]
     if (file.name.endsWith('.pdf')) {
