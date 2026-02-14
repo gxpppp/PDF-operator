@@ -1,0 +1,8 @@
+export { default as PdfViewer } from './Viewer/PdfViewer.vue'
+export { default as ThumbnailPanel } from './Thumbnail/ThumbnailPanel.vue'
+export { default as OutlinePanel } from './Outline/OutlinePanel.vue'
+export { default as PdfSearchPanel } from './Search/PdfSearchPanel.vue'
+export { default as PdfAnnotationPanel } from './Annotation/PdfAnnotationPanel.vue'
+export { default as PdfBookmarkPanel } from './Bookmark/PdfBookmarkPanel.vue'
+export { default as PdfToolbar } from './Toolbar/PdfToolbar.vue'
+export { default as PdfPropertiesPanel } from './Properties/PdfPropertiesPanel.vue'
