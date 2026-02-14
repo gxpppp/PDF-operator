@@ -1,69 +1,142 @@
-from app.core.ai_engine.engine import AiEngine
-from typing import List, Optional
+import os
+import time
+import asyncio
+from typing import Dict, Any, List, Optional
+
+from ..core.ai_engine.engine import AiEngine
+from ..schemas.ai import (
+    AiChatOptions, AiChatResponse, AiSummaryOptions, AiSummaryResult,
+    AiTranslateOptions, AiTranslateResult, AiExtractOptions, AiExtractResult,
+    AiRewriteOptions, AiRewriteResult, AiClassifyOptions, AiClassifyResult,
+    AiEmbeddingOptions, AiEmbeddingResult
+)
 
 
 class AiService:
     def __init__(self):
         self.engine = AiEngine()
-    
-    async def summarize(self, text: str, max_length: int = 200) -> str:
-        if not text.strip():
-            raise ValueError("Text cannot be empty")
+
+    async def chat(self, options: AiChatOptions) -> AiChatResponse:
+        result = await asyncio.to_thread(
+            self.engine.chat,
+            [m.dict() for m in options.messages],
+            model=options.model,
+            temperature=options.temperature,
+            max_tokens=options.max_tokens,
+            stream=options.stream
+        )
         
-        return await self.engine.summarize(text, max_length)
-    
-    async def translate(
-        self,
-        text: str,
-        source_lang: str = "auto",
-        target_lang: str = "zh"
-    ) -> str:
-        if not text.strip():
-            raise ValueError("Text cannot be empty")
+        return AiChatResponse(
+            id=result.get("id", ""),
+            content=result.get("content", ""),
+            model=result.get("model", ""),
+            usage=result.get("usage", {}),
+            finish_reason=result.get("finish_reason", "")
+        )
+
+    async def summarize(self, options: AiSummaryOptions) -> AiSummaryResult:
+        result = await asyncio.to_thread(
+            self.engine.summarize,
+            options.input_path,
+            style=options.style,
+            language=options.language,
+            max_length=options.max_length
+        )
         
-        return await self.engine.translate(text, source_lang, target_lang)
-    
-    async def chat(
-        self,
-        message: str,
-        context: Optional[str] = None,
-        conversation_id: Optional[str] = None
-    ) -> str:
-        if not message.strip():
-            raise ValueError("Message cannot be empty")
+        return AiSummaryResult(
+            success=True,
+            summary=result.get("summary", ""),
+            key_points=result.get("key_points", []),
+            topics=result.get("topics", []),
+            reading_time=result.get("reading_time", 0)
+        )
+
+    async def translate(self, options: AiTranslateOptions) -> AiTranslateResult:
+        result = await asyncio.to_thread(
+            self.engine.translate,
+            options.text,
+            options.source_language,
+            options.target_language,
+            preserve_formatting=options.preserve_formatting
+        )
         
-        return await self.engine.chat(message, context, conversation_id)
-    
-    async def extract(
-        self,
-        text: str,
-        extract_type: str = "keywords"
-    ) -> List[str]:
-        if not text.strip():
-            raise ValueError("Text cannot be empty")
+        return AiTranslateResult(
+            success=True,
+            translated_text=result.get("translated_text", ""),
+            detected_language=result.get("detected_language"),
+            confidence=result.get("confidence", 0)
+        )
+
+    async def extract(self, options: AiExtractOptions) -> AiExtractResult:
+        result = await asyncio.to_thread(
+            self.engine.extract,
+            options.input_path,
+            options.extract_type,
+            custom_pattern=options.custom_pattern
+        )
         
-        return await self.engine.extract(text, extract_type)
-    
-    async def summarize_pdf(self, file_path: str, max_length: int = 500) -> str:
-        import os
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File not found: {file_path}")
+        return AiExtractResult(
+            success=True,
+            entities=result.get("entities", [])
+        )
+
+    async def rewrite(self, options: AiRewriteOptions) -> AiRewriteResult:
+        result = await asyncio.to_thread(
+            self.engine.rewrite,
+            options.text,
+            style=options.style,
+            tone=options.tone,
+            preserve_meaning=options.preserve_meaning
+        )
         
-        return await self.engine.summarize_pdf(file_path, max_length)
-    
-    async def pdf_qa(self, file_path: str, question: str) -> str:
-        import os
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File not found: {file_path}")
+        return AiRewriteResult(
+            success=True,
+            rewritten_text=result.get("rewritten_text", ""),
+            changes=result.get("changes", [])
+        )
+
+    async def classify(self, options: AiClassifyOptions) -> AiClassifyResult:
+        result = await asyncio.to_thread(
+            self.engine.classify,
+            options.input_path,
+            options.categories,
+            multi_label=options.multi_label
+        )
         
-        if not question.strip():
-            raise ValueError("Question cannot be empty")
+        return AiClassifyResult(
+            success=True,
+            categories=result.get("categories", []),
+            suggested_category=result.get("suggested_category", "")
+        )
+
+    async def embed(self, options: AiEmbeddingOptions) -> AiEmbeddingResult:
+        result = await asyncio.to_thread(
+            self.engine.embed,
+            options.texts,
+            model=options.model
+        )
         
-        return await self.engine.pdf_qa(file_path, question)
-    
-    async def classify_pdf(self, file_path: str) -> str:
-        import os
-        if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File not found: {file_path}")
-        
-        return await self.engine.classify_pdf(file_path)
+        return AiEmbeddingResult(
+            success=True,
+            embeddings=result.get("embeddings", []),
+            model=result.get("model", ""),
+            dimensions=result.get("dimensions", 0)
+        )
+
+    async def get_models(self) -> List[Dict[str, Any]]:
+        return [
+            {"id": "gpt-4", "name": "GPT-4", "provider": "openai", "context_window": 8192},
+            {"id": "gpt-3.5-turbo", "name": "GPT-3.5 Turbo", "provider": "openai", "context_window": 4096},
+            {"id": "claude-3", "name": "Claude 3", "provider": "anthropic", "context_window": 100000},
+            {"id": "llama2", "name": "Llama 2", "provider": "ollama", "context_window": 4096},
+        ]
+
+    async def get_providers(self) -> List[Dict[str, Any]]:
+        return [
+            {"id": "openai", "name": "OpenAI", "requires_api_key": True},
+            {"id": "anthropic", "name": "Anthropic", "requires_api_key": True},
+            {"id": "ollama", "name": "Ollama (Local)", "requires_api_key": False},
+        ]
+
+
+ai_service = AiService()
