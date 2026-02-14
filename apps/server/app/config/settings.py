@@ -1,5 +1,5 @@
 from pydantic_settings import BaseSettings
-from typing import List
+from typing import List, Optional
 from functools import lru_cache
 
 
@@ -25,8 +25,20 @@ class Settings(BaseSettings):
     OCR_LANGUAGE: str = "chi_sim+eng"
     OCR_USE_GPU: bool = False
     
-    LOG_LEVEL: str = "INFO"
+    LOG_LEVEL: str = "DEBUG" if DEBUG else "INFO"
     LOG_FILE: str = "logs/app.log"
+    LOG_FORMAT: str = "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
+    LOG_ROTATION: str = "10 MB"
+    LOG_RETENTION: str = "7 days"
+    
+    PROFILING_ENABLED: bool = False
+    PROFILING_OUTPUT: str = "logs/profile"
+    
+    SENTRY_DSN: Optional[str] = None
+    
+    DEBUGPY_ENABLED: bool = False
+    DEBUGPY_PORT: int = 5678
+    DEBUGPY_WAIT_FOR_DEBUGGER: bool = False
 
     class Config:
         env_file = ".env"
