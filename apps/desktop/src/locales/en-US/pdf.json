@@ -1,0 +1,81 @@
+{
+  "pdf": {
+    "title": "PDF",
+    "open": "Open PDF",
+    "save": "Save",
+    "saveAs": "Save As",
+    "close": "Close",
+    "print": "Print",
+    "properties": "Properties",
+    "metadata": {
+      "title": "Title",
+      "author": "Author",
+      "subject": "Subject",
+      "keywords": "Keywords",
+      "creator": "Creator",
+      "producer": "Producer",
+      "creationDate": "Creation Date",
+      "modificationDate": "Modification Date",
+      "pages": "Pages",
+      "fileSize": "File Size"
+    },
+    "viewer": {
+      "zoom": "Zoom",
+      "zoomIn": "Zoom In",
+      "zoomOut": "Zoom Out",
+      "fitWidth": "Fit Width",
+      "fitPage": "Fit Page",
+      "actualSize": "Actual Size",
+      "rotateLeft": "Rotate Left",
+      "rotateRight": "Rotate Right",
+      "singlePage": "Single Page",
+      "continuous": "Continuous",
+      "twoPages": "Two Pages",
+      "thumbnails": "Thumbnails",
+      "outline": "Outline",
+      "bookmarks": "Bookmarks",
+      "annotations": "Annotations",
+      "search": "Search",
+      "previousPage": "Previous Page",
+      "nextPage": "Next Page",
+      "goToPage": "Go to Page",
+      "pageOf": "Page {current} of {total}"
+    },
+    "editor": {
+      "edit": "Edit",
+      "addText": "Add Text",
+      "addImage": "Add Image",
+      "addShape": "Add Shape",
+      "highlight": "Highlight",
+      "underline": "Underline",
+      "strikethrough": "Strikethrough",
+      "comment": "Comment",
+      "signature": "Signature",
+      "redact": "Redact",
+      "undo": "Undo",
+      "redo": "Redo"
+    },
+    "tools": {
+      "merge": "Merge",
+      "split": "Split",
+      "convert": "Convert",
+      "compress": "Compress",
+      "ocr": "OCR",
+      "watermark": "Watermark",
+      "encrypt": "Encrypt",
+      "decrypt": "Decrypt",
+      "extract": "Extract"
+    }
+  },
+  "errors": {
+    "fileNotFound": "File not found",
+    "invalidPdf": "Invalid PDF file",
+    "passwordRequired": "Password required",
+    "incorrectPassword": "Incorrect password",
+    "fileTooLarge": "File too large",
+    "unsupportedFormat": "Unsupported format",
+    "processingFailed": "Processing failed",
+    "saveFailed": "Save failed",
+    "printFailed": "Print failed"
+  }
+}

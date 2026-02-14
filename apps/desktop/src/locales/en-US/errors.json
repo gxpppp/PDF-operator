@@ -1,0 +1,25 @@
+{
+  "errors": {
+    "unknown": "An unknown error occurred",
+    "network": "Network connection failed",
+    "timeout": "Request timeout",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "notFound": "Resource not found",
+    "serverError": "Server error",
+    "validation": "Validation failed",
+    "fileNotFound": "File not found",
+    "fileReadError": "File read error",
+    "fileWriteError": "File write error",
+    "invalidFormat": "Invalid format",
+    "passwordRequired": "Password required",
+    "incorrectPassword": "Incorrect password",
+    "permissionDenied": "Permission denied",
+    "outOfMemory": "Out of memory",
+    "diskFull": "Disk full",
+    "operationCancelled": "Operation cancelled",
+    "operationFailed": "Operation failed",
+    "tryAgain": "Please try again",
+    "contactSupport": "Contact support if problem persists"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "settings": {
+    "title": "Settings",
+    "general": {
+      "title": "General",
+      "language": "Language",
+      "theme": "Theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "System",
+      "autoUpdate": "Auto Update",
+      "checkUpdateInterval": "Check Update Interval",
+      "showWelcome": "Show Welcome on Startup",
+      "confirmClose": "Confirm Before Close"
+    },
+    "appearance": {
+      "title": "Appearance",
+      "fontSize": "Font Size",
+      "fontFamily": "Font Family",
+      "sidebarPosition": "Sidebar Position",
+      "left": "Left",
+      "right": "Right",
+      "compactMode": "Compact Mode",
+      "animations": "Animations"
+    },
+    "shortcuts": {
+      "title": "Shortcuts",
+      "reset": "Reset to Default",
+      "conflict": "Shortcut Conflict",
+      "pressKey": "Press Key Combination"
+    },
+    "storage": {
+      "title": "Storage",
+      "defaultOutputDir": "Default Output Directory",
+      "autoSave": "Auto Save",
+      "autoSaveInterval": "Auto Save Interval",
+      "recentFilesLimit": "Recent Files Limit",
+      "clearHistory": "Clear History",
+      "clearCache": "Clear Cache"
+    },
+    "ai": {
+      "title": "AI Settings",
+      "provider": "Provider",
+      "apiKey": "API Key",
+      "model": "Model",
+      "temperature": "Temperature",
+      "maxTokens": "Max Tokens"
+    },
+    "about": {
+      "title": "About",
+      "version": "Version",
+      "checkUpdate": "Check for Updates",
+      "website": "Website",
+      "documentation": "Documentation",
+      "license": "License",
+      "credits": "Credits"
+    }
+  }
+}
