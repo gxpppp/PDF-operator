@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "vue.volar",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "rust-lang.rust-analyzer",
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "tauri-apps.tauri-vscode",
+    "bradlc.vscode-tailwindcss"
+  ]
+}

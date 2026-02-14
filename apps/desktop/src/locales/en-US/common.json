@@ -1,0 +1,76 @@
+{
+  "app": {
+    "name": "PDF Master",
+    "description": "Enterprise-grade PDF Processing Software"
+  },
+  "nav": {
+    "home": "Home",
+    "editor": "Editor",
+    "tools": "Tools",
+    "settings": "Settings",
+    "workflow": "Workflow",
+    "plugins": "Plugins"
+  },
+  "tools": {
+    "merge": "Merge PDF",
+    "split": "Split PDF",
+    "convert": "Convert",
+    "compress": "Compress PDF",
+    "ocr": "OCR Recognition",
+    "security": "Security",
+    "watermark": "Add Watermark",
+    "extract": "Extract Content",
+    "batch": "Batch Process"
+  },
+  "actions": {
+    "open": "Open File",
+    "save": "Save",
+    "saveAs": "Save As",
+    "export": "Export",
+    "print": "Print",
+    "undo": "Undo",
+    "redo": "Redo",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "copy": "Copy",
+    "paste": "Paste",
+    "selectAll": "Select All",
+    "search": "Search",
+    "replace": "Replace"
+  },
+  "pdf": {
+    "page": "Page",
+    "of": "of",
+    "zoom": "Zoom",
+    "rotate": "Rotate",
+    "fitWidth": "Fit Width",
+    "fitPage": "Fit Page",
+    "actualSize": "Actual Size",
+    "thumbnail": "Thumbnail",
+    "outline": "Outline",
+    "bookmark": "Bookmark",
+    "annotation": "Annotation",
+    "metadata": "Metadata"
+  },
+  "settings": {
+    "general": "General",
+    "appearance": "Appearance",
+    "shortcuts": "Shortcuts",
+    "language": "Language",
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "messages": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "processing": "Processing...",
+    "success": "Operation successful",
+    "error": "Operation failed",
+    "confirmDelete": "Are you sure you want to delete?",
+    "unsavedChanges": "You have unsaved changes. Are you sure you want to leave?"
+  }
+}

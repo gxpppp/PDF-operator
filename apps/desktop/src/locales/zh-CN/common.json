@@ -1,0 +1,76 @@
+{
+  "app": {
+    "name": "PDF Master",
+    "description": "企业级PDF处理软件"
+  },
+  "nav": {
+    "home": "首页",
+    "editor": "编辑器",
+    "tools": "工具",
+    "settings": "设置",
+    "workflow": "工作流",
+    "plugins": "插件"
+  },
+  "tools": {
+    "merge": "合并PDF",
+    "split": "拆分PDF",
+    "convert": "格式转换",
+    "compress": "压缩PDF",
+    "ocr": "OCR识别",
+    "security": "安全设置",
+    "watermark": "添加水印",
+    "extract": "内容提取",
+    "batch": "批量处理"
+  },
+  "actions": {
+    "open": "打开文件",
+    "save": "保存",
+    "saveAs": "另存为",
+    "export": "导出",
+    "print": "打印",
+    "undo": "撤销",
+    "redo": "重做",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "edit": "编辑",
+    "copy": "复制",
+    "paste": "粘贴",
+    "selectAll": "全选",
+    "search": "搜索",
+    "replace": "替换"
+  },
+  "pdf": {
+    "page": "页",
+    "of": "共",
+    "zoom": "缩放",
+    "rotate": "旋转",
+    "fitWidth": "适应宽度",
+    "fitPage": "适应页面",
+    "actualSize": "实际大小",
+    "thumbnail": "缩略图",
+    "outline": "大纲",
+    "bookmark": "书签",
+    "annotation": "注释",
+    "metadata": "元数据"
+  },
+  "settings": {
+    "general": "常规",
+    "appearance": "外观",
+    "shortcuts": "快捷键",
+    "language": "语言",
+    "theme": "主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "messages": {
+    "loading": "加载中...",
+    "saving": "保存中...",
+    "processing": "处理中...",
+    "success": "操作成功",
+    "error": "操作失败",
+    "confirmDelete": "确定要删除吗？",
+    "unsavedChanges": "有未保存的更改，确定要离开吗？"
+  }
+}

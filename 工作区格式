@@ -1,0 +1,938 @@
+pdf-master/
+│
+├── .github/                              # GitHub配置
+│   ├── workflows/                        # CI/CD工作流
+│   │   ├── ci.yml                        # 持续集成
+│   │   ├── release.yml                   # 发布流程
+│   │   ├── test.yml                      # 测试流程
+│   │   └── docs.yml                      # 文档部署
+│   ├── ISSUE_TEMPLATE/                   # Issue模板
+│   │   ├── bug_report.md
+│   │   ├── feature_request.md
+│   │   └── question.md
+│   ├── PULL_REQUEST_TEMPLATE.md
+│   ├── CODEOWNERS
+│   └── FUNDING.yml
+│
+├── .vscode/                              # VS Code配置
+│   ├── settings.json
+│   ├── launch.json
+│   ├── extensions.json
+│   └── tasks.json
+│
+├── apps/                                 # 应用程序
+│   │
+│   ├── desktop/                          # 桌面客户端
+│   │   │
+│   │   ├── public/                       # 静态资源
+│   │   │   ├── icons/
+│   │   │   │   ├── icon.ico
+│   │   │   │   ├── icon.png
+│   │   │   │   └── icon.icns
+│   │   │   ├── fonts/
+│   │   │   │   ├── Inter.woff2
+│   │   │   │   └── JetBrainsMono.woff2
+│   │   │   └── images/
+│   │   │       ├── logo.svg
+│   │   │       ├── splash.png
+│   │   │       └── welcome/
+│   │   │           ├── feature-1.svg
+│   │   │           ├── feature-2.svg
+│   │   │           └── feature-3.svg
+│   │   │
+│   │   ├── src/                          # 前端源码
+│   │   │   │
+│   │   │   ├── main.ts                   # 入口文件
+│   │   │   ├── App.vue                   # 根组件
+│   │   │   │
+│   │   │   ├── api/                      # API层
+│   │   │   │   ├── index.ts              # API导出
+│   │   │   │   ├── client.ts             # HTTP客户端
+│   │   │   │   ├── interceptors.ts       # 拦截器
+│   │   │   │   ├── endpoints/            # API端点
+│   │   │   │   │   ├── pdf.ts            # PDF操作API
+│   │   │   │   │   ├── ocr.ts            # OCR API
+│   │   │   │   │   ├── ai.ts             # AI API
+│   │   │   │   │   ├── convert.ts        # 转换API
+│   │   │   │   │   ├── security.ts       # 安全API
+│   │   │   │   │   ├── batch.ts          # 批量处理API
+│   │   │   │   │   ├── workflow.ts       # 工作流API
+│   │   │   │   │   ├── plugin.ts         # 插件API
+│   │   │   │   │   └── system.ts         # 系统API
+│   │   │   │   └── types/                # API类型
+│   │   │   │       ├── pdf.types.ts
+│   │   │   │       ├── ocr.types.ts
+│   │   │   │       ├── ai.types.ts
+│   │   │   │       ├── convert.types.ts
+│   │   │   │       ├── security.types.ts
+│   │   │   │       ├── batch.types.ts
+│   │   │   │       ├── workflow.types.ts
+│   │   │   │       ├── plugin.types.ts
+│   │   │   │       └── common.types.ts
+│   │   │   │
+│   │   │   ├── assets/                   # 静态资源
+│   │   │   │   ├── styles/               # 样式文件
+│   │   │   │   │   ├── main.css          # 主样式
+│   │   │   │   │   ├── variables.css     # CSS变量
+│   │   │   │   │   ├── themes/           # 主题
+│   │   │   │   │   │   ├── light.css
+│   │   │   │   │   │   ├── dark.css
+│   │   │   │   │   │   ├── sepia.css
+│   │   │   │   │   │   └── high-contrast.css
+│   │   │   │   │   ├── components/       # 组件样式
+│   │   │   │   │   │   ├── button.css
+│   │   │   │   │   │   ├── input.css
+│   │   │   │   │   │   ├── modal.css
+│   │   │   │   │   │   ├── sidebar.css
+│   │   │   │   │   │   ├── toolbar.css
+│   │   │   │   │   │   └── pdf-viewer.css
+│   │   │   │   │   └── utilities/        # 工具类
+│   │   │   │   │       ├── animations.css
+│   │   │   │   │       ├── layout.css
+│   │   │   │   │       └── typography.css
+│   │   │   │   └── icons/                # 图标
+│   │   │   │       ├── index.ts
+│   │   │   │       └── svg/              # SVG图标
+│   │   │   │           ├── pdf.svg
+│   │   │   │           ├── merge.svg
+│   │   │   │           ├── split.svg
+│   │   │   │           └── ... (50+ icons)
+│   │   │   │
+│   │   │   ├── components/               # UI组件
+│   │   │   │   │
+│   │   │   │   ├── common/               # 通用组件
+│   │   │   │   │   ├── Button/
+│   │   │   │   │   │   ├── Button.vue
+│   │   │   │   │   │   ├── Button.types.ts
+│   │   │   │   │   │   └── Button.test.ts
+│   │   │   │   │   ├── Input/
+│   │   │   │   │   │   ├── Input.vue
+│   │   │   │   │   │   ├── Input.types.ts
+│   │   │   │   │   │   └── Input.test.ts
+│   │   │   │   │   ├── Select/
+│   │   │   │   │   │   ├── Select.vue
+│   │   │   │   │   │   ├── SelectOption.vue
+│   │   │   │   │   │   ├── Select.types.ts
+│   │   │   │   │   │   └── Select.test.ts
+│   │   │   │   │   ├── Modal/
+│   │   │   │   │   │   ├── Modal.vue
+│   │   │   │   │   │   ├── ModalHeader.vue
+│   │   │   │   │   │   ├── ModalBody.vue
+│   │   │   │   │   │   ├── ModalFooter.vue
+│   │   │   │   │   │   └── Modal.test.ts
+│   │   │   │   │   ├── Dropdown/
+│   │   │   │   │   │   ├── Dropdown.vue
+│   │   │   │   │   │   ├── DropdownMenu.vue
+│   │   │   │   │   │   └── DropdownItem.vue
+│   │   │   │   │   ├── Tooltip/
+│   │   │   │   │   │   ├── Tooltip.vue
+│   │   │   │   │   │   └── Tooltip.types.ts
+│   │   │   │   │   ├── Popover/
+│   │   │   │   │   │   ├── Popover.vue
+│   │   │   │   │   │   └── Popover.types.ts
+│   │   │   │   │   ├── Tabs/
+│   │   │   │   │   │   ├── Tabs.vue
+│   │   │   │   │   │   ├── Tab.vue
+│   │   │   │   │   │   └── TabPanel.vue
+│   │   │   │   │   ├── Tree/
+│   │   │   │   │   │   ├── Tree.vue
+│   │   │   │   │   │   ├── TreeNode.vue
+│   │   │   │   │   │   └── Tree.types.ts
+│   │   │   │   │   ├── Table/
+│   │   │   │   │   │   ├── Table.vue
+│   │   │   │   │   │   ├── TableHeader.vue
+│   │   │   │   │   │   ├── TableBody.vue
+│   │   │   │   │   │   ├── TableRow.vue
+│   │   │   │   │   │   └── TableCell.vue
+│   │   │   │   │   ├── Form/
+│   │   │   │   │   │   ├── Form.vue
+│   │   │   │   │   │   ├── FormItem.vue
+│   │   │   │   │   │   ├── FormLabel.vue
+│   │   │   │   │   │   └── FormError.vue
+│   │   │   │   │   ├── Progress/
+│   │   │   │   │   │   ├── Progress.vue
+│   │   │   │   │   │   ├── ProgressCircle.vue
+│   │   │   │   │   │   └── ProgressSteps.vue
+│   │   │   │   │   ├── Loading/
+│   │   │   │   │   │   ├── Loading.vue
+│   │   │   │   │   │   ├── LoadingOverlay.vue
+│   │   │   │   │   │   └── LoadingSkeleton.vue
+│   │   │   │   │   ├── Notification/
+│   │   │   │   │   │   ├── Notification.vue
+│   │   │   │   │   │   ├── NotificationContainer.vue
+│   │   │   │   │   │   └── Notification.types.ts
+│   │   │   │   │   ├── Dialog/
+│   │   │   │   │   │   ├── Dialog.vue
+│   │   │   │   │   │   ├── ConfirmDialog.vue
+│   │   │   │   │   │   └── AlertDialog.vue
+│   │   │   │   │   ├── Menu/
+│   │   │   │   │   │   ├── Menu.vue
+│   │   │   │   │   │   ├── MenuItem.vue
+│   │   │   │   │   │   ├── MenuDivider.vue
+│   │   │   │   │   │   └── MenuGroup.vue
+│   │   │   │   │   ├── ContextMenu/
+│   │   │   │   │   │   ├── ContextMenu.vue
+│   │   │   │   │   │   └── ContextMenuItem.vue
+│   │   │   │   │   ├── Slider/
+│   │   │   │   │   │   ├── Slider.vue
+│   │   │   │   │   │   └── RangeSlider.vue
+│   │   │   │   │   ├── Switch/
+│   │   │   │   │   │   ├── Switch.vue
+│   │   │   │   │   │   └── Switch.types.ts
+│   │   │   │   │   ├── Checkbox/
+│   │   │   │   │   │   ├── Checkbox.vue
+│   │   │   │   │   │   └── CheckboxGroup.vue
+│   │   │   │   │   ├── Radio/
+│   │   │   │   │   │   ├── Radio.vue
+│   │   │   │   │   │   └── RadioGroup.vue
+│   │   │   │   │   ├── Badge/
+│   │   │   │   │   │   ├── Badge.vue
+│   │   │   │   │   │   └── Tag.vue
+│   │   │   │   │   ├── Avatar/
+│   │   │   │   │   │   ├── Avatar.vue
+│   │   │   │   │   │   └── AvatarGroup.vue
+│   │   │   │   │   ├── Card/
+│   │   │   │   │   │   ├── Card.vue
+│   │   │   │   │   │   ├── CardHeader.vue
+│   │   │   │   │   │   ├── CardBody.vue
+│   │   │   │   │   │   └── CardFooter.vue
+│   │   │   │   │   ├── Collapse/
+│   │   │   │   │   │   ├── Collapse.vue
+│   │   │   │   │   │   └── CollapsePanel.vue
+│   │   │   │   │   ├── Divider/
+│   │   │   │   │   │   └── Divider.vue
+│   │   │   │   │   ├── Empty/
+│   │   │   │   │   │   └── Empty.vue
+│   │   │   │   │   ├── FileInput/
+│   │   │   │   │   │   ├── FileInput.vue
+│   │   │   │   │   │   ├── FileDropZone.vue
+│   │   │   │   │   │   └── FilePreview.vue
+│   │   │   │   │   ├── SearchInput/
+│   │   │   │   │   │   ├── SearchInput.vue
+│   │   │   │   │   │   └── SearchResults.vue
+│   │   │   │   │   ├── Pagination/
+│   │   │   │   │   │   ├── Pagination.vue
+│   │   │   │   │   │   └── Pagination.types.ts
+│   │   │   │   │   ├── Breadcrumb/
+│   │   │   │   │   │   ├── Breadcrumb.vue
+│   │   │   │   │   │   └── BreadcrumbItem.vue
+│   │   │   │   │   └── index.ts
+│   │   │   │   │
+│   │   │   │   ├── layout/               # 布局组件
+│   │   │   │   │   ├── AppLayout.vue
+│   │   │   │   │   ├── Header.vue
+│   │   │   │   │   ├── Sidebar/
+│   │   │   │   │   │   ├── Sidebar.vue
+│   │   │   │   │   │   ├── SidebarItem.vue
+│   │   │   │   │   │   ├── SidebarGroup.vue
+│   │   │   │   │   │   └── SidebarFooter.vue
+│   │   │   │   │   ├── Footer.vue
+│   │   │   │   │   ├── Content.vue
+│   │   │   │   │   ├── Toolbar/
+│   │   │   │   │   │   ├── Toolbar.vue
+│   │   │   │   │   │   ├── ToolbarItem.vue
+│   │   │   │   │   │   ├── ToolbarDivider.vue
+│   │   │   │   │   │   └── ToolbarGroup.vue
+│   │   │   │   │   ├── StatusBar/
+│   │   │   │   │   │   ├── StatusBar.vue
+│   │   │   │   │   │   └── StatusBarItem.vue
+│   │   │   │   │   ├── Panel/
+│   │   │   │   │   │   ├── Panel.vue
+│   │   │   │   │   │   ├── PanelGroup.vue
+│   │   │   │   │   │   └── PanelResizer.vue
+│   │   │   │   │   ├── TabBar/
+│   │   │   │   │   │   ├── TabBar.vue
+│   │   │   │   │   │   └── TabBarItem.vue
+│   │   │   │   │   └── index.ts
+│   │   │   │   │
+│   │   │   │   ├── pdf/                  # PDF专用组件
+│   │   │   │   │   ├── Viewer/
+│   │   │   │   │   │   ├── PdfViewer.vue
+│   │   │   │   │   │   ├── PdfPage.vue
+│   │   │   │   │   │   ├── PdfCanvas.vue
+│   │   │   │   │   │   ├── PdfTextLayer.vue
+│   │   │   │   │   │   ├── PdfAnnotationLayer.vue
+│   │   │   │   │   │   └── PdfViewer.types.ts
+│   │   │   │   │   ├── Thumbnail/
+│   │   │   │   │   │   ├── ThumbnailPanel.vue
+│   │   │   │   │   │   ├── ThumbnailItem.vue
+│   │   │   │   │   │   └── Thumbnail.types.ts
+│   │   │   │   │   ├── Outline/
+│   │   │   │   │   │   ├── OutlinePanel.vue
+│   │   │   │   │   │   ├── OutlineItem.vue
+│   │   │   │   │   │   └── Outline.types.ts
+│   │   │   │   │   ├── Bookmark/
+│   │   │   │   │   │   ├── BookmarkPanel.vue
+│   │   │   │   │   │   ├── BookmarkItem.vue
+│   │   │   │   │   │   └── Bookmark.types.ts
+│   │   │   │   │   ├── Annotation/
+│   │   │   │   │   │   ├── AnnotationPanel.vue
+│   │   │   │   │   │   ├── AnnotationItem.vue
+│   │   │   │   │   │   ├── AnnotationEditor.vue
+│   │   │   │   │   │   ├── annotations/
+│   │   │   │   │   │   │   ├── TextAnnotation.vue
+│   │   │   │   │   │   │   ├── HighlightAnnotation.vue
+│   │   │   │   │   │   │   ├── UnderlineAnnotation.vue
+│   │   │   │   │   │   │   ├── StrikeOutAnnotation.vue
+│   │   │   │   │   │   │   ├── StampAnnotation.vue
+│   │   │   │   │   │   │   ├── InkAnnotation.vue
+│   │   │   │   │   │   │   ├── FreeTextAnnotation.vue
+│   │   │   │   │   │   │   ├── LineAnnotation.vue
+│   │   │   │   │   │   │   ├── SquareAnnotation.vue
+│   │   │   │   │   │   │   ├── CircleAnnotation.vue
+│   │   │   │   │   │   │   ├── PolygonAnnotation.vue
+│   │   │   │   │   │   │   ├── PolylineAnnotation.vue
+│   │   │   │   │   │   │   ├── FileAttachmentAnnotation.vue
+│   │   │   │   │   │   │   ├── SoundAnnotation.vue
+│   │   │   │   │   │   │   └── LinkAnnotation.vue
+│   │   │   │   │   │   └── Annotation.types.ts
+│   │   │   │   │   ├── Form/
+│   │   │   │   │   │   ├── FormPanel.vue
+│   │   │   │   │   │   ├── FormField.vue
+│   │   │   │   │   │   ├── fields/
+│   │   │   │   │   │   │   ├── TextField.vue
+│   │   │   │   │   │   │   ├── CheckboxField.vue
+│   │   │   │   │   │   │   ├── RadioField.vue
+│   │   │   │   │   │   │   ├── DropdownField.vue
+│   │   │   │   │   │   │   ├── SignatureField.vue
+│   │   │   │   │   │   │   └── DateField.vue
+│   │   │   │   │   │   └── Form.types.ts
+│   │   │   │   │   ├── Search/
+│   │   │   │   │   │   ├── PdfSearch.vue
+│   │   │   │   │   │   ├── SearchResult.vue
+│   │   │   │   │   │   └── Search.types.ts
+│   │   │   │   │   ├── Metadata/
+│   │   │   │   │   │   ├── MetadataPanel.vue
+│   │   │   │   │   │   ├── MetadataEditor.vue
+│   │   │   │   │   │   └── Metadata.types.ts
+│   │   │   │   │   ├── Toolbar/
+│   │   │   │   │   │   ├── PdfToolbar.vue
+│   │   │   │   │   │   ├── ZoomControls.vue
+│   │   │   │   │   │   ├── PageControls.vue
+│   │   │   │   │   │   ├── ViewModeControls.vue
+│   │   │   │   │   │   ├── ToolControls.vue
+│   │   │   │   │   │   └── Toolbar.types.ts
+│   │   │   │   │   ├── Print/
+│   │   │   │   │   │   ├── PrintPreview.vue
+│   │   │   │   │   │   ├── PrintSettings.vue
+│   │   │   │   │   │   └── Print.types.ts
+│   │   │   │   │   ├── Compare/
+│   │   │   │   │   │   ├── PdfCompare.vue
+│   │   │   │   │   │   ├── CompareView.vue
+│   │   │   │   │   │   ├── DiffOverlay.vue
+│   │   │   │   │   │   └── Compare.types.ts
+│   │   │   │   │   ├── Editor/
+│   │   │   │   │   │   ├── PdfEditor.vue
+│   │   │   │   │   │   ├── TextEditor.vue
+│   │   │   │   │   │   ├── ImageEditor.vue
+│   │   │   │   │   │   ├── ShapeEditor.vue
+│   │   │   │   │   │   ├── WatermarkEditor.vue
+│   │   │   │   │   │   ├── HeaderFooterEditor.vue
+│   │   │   │   │   │   ├── PageNumberEditor.vue
+│   │   │   │   │   │   └── Editor.types.ts
+│   │   │   │   │   ├── PageOrganizer/
+│   │   │   │   │   │   ├── PageOrganizer.vue
+│   │   │   │   │   │   ├── PageItem.vue
+│   │   │   │   │   │   ├── PageSorter.vue
+│   │   │   │   │   │   └── PageOrganizer.types.ts
+│   │   │   │   │   ├── Signature/
+│   │   │   │   │   │   ├── SignaturePanel.vue
+│   │   │   │   │   │   ├── SignaturePad.vue
+│   │   │   │   │   │   ├── SignatureManager.vue
+│   │   │   │   │   │   └── Signature.types.ts
+│   │   │   │   │   ├── Redaction/
+│   │   │   │   │   │   ├── RedactionPanel.vue
+│   │   │   │   │   │   ├── RedactionTool.vue
+│   │   │   │   │   │   └── Redaction.types.ts
+│   │   │   │   │   └── index.ts
+│   │   │   │   │
+│   │   │   │   ├── tools/                # 工具组件
+│   │   │   │   │   ├── MergeTool/
+│   │   │   │   │   │   ├── MergeTool.vue
+│   │   │   │   │   │   ├── FileList.vue
+│   │   │   │   │   │   ├── MergePreview.vue
+│   │   │   │   │   │   └── MergeTool.types.ts
+│   │   │   │   │   ├── SplitTool/
+│   │   │   │   │   │   ├── SplitTool.vue
+│   │   │   │   │   │   ├── SplitMode.vue
+│   │   │   │   │   │   ├── SplitPreview.vue
+│   │   │   │   │   │   └── SplitTool.types.ts
+│   │   │   │   │   ├── ConvertTool/
+│   │   │   │   │   │   ├── ConvertTool.vue
+│   │   │   │   │   │   ├── ConvertOptions.vue
+│   │   │   │   │   │   ├── ConvertPreview.vue
+│   │   │   │   │   │   └── ConvertTool.types.ts
+│   │   │   │   │   ├── CompressTool/
+│   │   │   │   │   │   ├── CompressTool.vue
+│   │   │   │   │   │   ├── CompressOptions.vue
+│   │   │   │   │   │   └── CompressTool.types.ts
+│   │   │   │   │   ├── WatermarkTool/
+│   │   │   │   │   │   ├── WatermarkTool.vue
+│   │   │   │   │   │   ├── WatermarkPreview.vue
+│   │   │   │   │   │   └── WatermarkTool.types.ts
+│   │   │   │   │   ├── OcrTool/
+│   │   │   │   │   │   ├── OcrTool.vue
+│   │   │   │   │   │   ├── OcrOptions.vue
+│   │   │   │   │   │   ├── OcrPreview.vue
+│   │   │   │   │   │   └── OcrTool.types.ts
+│   │   │   │   │   ├── AiTool/
+│   │   │   │   │   │   ├── AiTool.vue
+│   │   │   │   │   │   ├── AiChat.vue
+│   │   │   │   │   │   ├── AiSummary.vue
+│   │   │   │   │   │   ├── AiTranslate.vue
+│   │   │   │   │   │   └── AiTool.types.ts
+│   │   │   │   │   ├── BatchTool/
+│   │   │   │   │   │   ├── BatchTool.vue
+│   │   │   │   │   │   ├── BatchQueue.vue
+│   │   │   │   │   │   ├── BatchProgress.vue
+│   │   │   │   │   │   └── BatchTool.types.ts
+│   │   │   │   │   ├── ExtractTool/
+│   │   │   │   │   │   ├── ExtractTool.vue
+│   │   │   │   │   │   ├── TextExtract.vue
+│   │   │   │   │   │   ├── ImageExtract.vue
+│   │   │   │   │   │   ├── TableExtract.vue
+│   │   │   │   │   │   └── ExtractTool.types.ts
+│   │   │   │   │   ├── SecurityTool/
+│   │   │   │   │   │   ├── SecurityTool.vue
+│   │   │   │   │   │   ├── EncryptPanel.vue
+│   │   │   │   │   │   ├── DecryptPanel.vue
+│   │   │   │   │   │   ├── PermissionPanel.vue
+│   │   │   │   │   │   └── SecurityTool.types.ts
+│   │   │   │   │   └── index.ts
+│   │   │   │   │
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── composables/              # 组合式函数
+│   │   │   │   ├── usePdf.ts             # PDF操作
+│   │   │   │   ├── usePdfViewer.ts       # PDF预览
+│   │   │   │   ├── usePdfEditor.ts       # PDF编辑
+│   │   │   │   ├── useOcr.ts             # OCR识别
+│   │   │   │   ├── useAi.ts              # AI功能
+│   │   │   │   ├── useConvert.ts         # 格式转换
+│   │   │   │   ├── useSecurity.ts        # 安全功能
+│   │   │   │   ├── useBatch.ts           # 批量处理
+│   │   │   │   ├── useWorkflow.ts        # 工作流
+│   │   │   │   ├── usePlugin.ts          # 插件系统
+│   │   │   │   ├── useTheme.ts           # 主题
+│   │   │   │   ├── useShortcut.ts        # 快捷键
+│   │   │   │   ├── useDragDrop.ts        # 拖拽
+│   │   │   │   ├── useFilePicker.ts      # 文件选择
+│   │   │   │   ├── useHistory.ts         # 历史记录
+│   │   │   │   ├── useNotification.ts    # 通知
+│   │   │   │   ├── useDialog.ts          # 对话框
+│   │   │   │   ├── useClipboard.ts       # 剪贴板
+│   │   │   │   ├── useStorage.ts         # 本地存储
+│   │   │   │   ├── useDebounce.ts        # 防抖
+│   │   │   │   ├── useThrottle.ts        # 节流
+│   │   │   │   ├── useIntersectionObserver.ts
+│   │   │   │   ├── useResizeObserver.ts
+│   │   │   │   ├── useEventListener.ts
+│   │   │   │   ├── useMediaQuery.ts
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── directives/               # 自定义指令
+│   │   │   │   ├── clickOutside.ts
+│   │   │   │   ├── drag.ts
+│   │   │   │   ├── drop.ts
+│   │   │   │   ├── focus.ts
+│   │   │   │   ├── lazy.ts
+│   │   │   │   ├── loading.ts
+│   │   │   │   ├── permission.ts
+│   │   │   │   ├── tooltip.ts
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── hooks/                    # 自定义钩子
+│   │   │   │   ├── useAsync.ts
+│   │   │   │   ├── useToggle.ts
+│   │   │   │   ├── useCounter.ts
+│   │   │   │   ├── useLocalStorage.ts
+│   │   │   │   ├── useSessionStorage.ts
+│   │   │   │   ├── useMouse.ts
+│   │   │   │   ├── useKeyboard.ts
+│   │   │   │   ├── useWindowResize.ts
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── plugins/                  # 插件
+│   │   │   │   ├── i18n.ts               # 国际化
+│   │   │   │   ├── router.ts             # 路由
+│   │   │   │   ├── pinia.ts              # 状态管理
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── router/                   # 路由配置
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── routes.ts
+│   │   │   │   ├── guards.ts
+│   │   │   │   └── middleware/
+│   │   │   │       ├── auth.ts
+│   │   │   │       └── title.ts
+│   │   │   │
+│   │   │   ├── stores/                   # 状态管理
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── app.ts                # 应用状态
+│   │   │   │   ├── user.ts               # 用户状态
+│   │   │   │   ├── pdf.ts                # PDF状态
+│   │   │   │   ├── editor.ts             # 编辑器状态
+│   │   │   │   ├── settings.ts           # 设置状态
+│   │   │   │   ├── history.ts            # 历史状态
+│   │   │   │   ├── notification.ts       # 通知状态
+│   │   │   │   ├── plugin.ts             # 插件状态
+│   │   │   │   └── workflow.ts           # 工作流状态
+│   │   │   │
+│   │   │   ├── types/                    # 类型定义
+│   │   │   │   ├── global.d.ts
+│   │   │   │   ├── components.d.ts
+│   │   │   │   ├── api.d.ts
+│   │   │   │   ├── store.d.ts
+│   │   │   │   └── env.d.ts
+│   │   │   │
+│   │   │   ├── utils/                    # 工具函数
+│   │   │   │   ├── index.ts
+│   │   │   │   ├── file.ts               # 文件操作
+│   │   │   │   ├── format.ts             # 格式化
+│   │   │   │   ├── validate.ts           # 验证
+│   │   │   │   ├── crypto.ts             # 加密
+│   │   │   │   ├── download.ts           # 下载
+│   │   │   │   ├── upload.ts             # 上传
+│   │   │   │   ├── array.ts              # 数组工具
+│   │   │   │   ├── object.ts             # 对象工具
+│   │   │   │   ├── string.ts             # 字符串工具
+│   │   │   │   ├── number.ts             # 数字工具
+│   │   │   │   ├── date.ts               # 日期工具
+│   │   │   │   ├── url.ts                # URL工具
+│   │   │   │   ├── dom.ts                # DOM操作
+│   │   │   │   ├── event.ts              # 事件处理
+│   │   │   │   ├── worker.ts             # Web Worker
+│   │   │   │   ├── logger.ts             # 日志
+│   │   │   │   ├── error.ts              # 错误处理
+│   │   │   │   └── constants.ts          # 常量
+│   │   │   │
+│   │   │   ├── workers/                  # Web Workers
+│   │   │   │   ├── pdf.worker.ts
+│   │   │   │   ├── ocr.worker.ts
+│   │   │   │   ├── compress.worker.ts
+│   │   │   │   └── index.ts
+│   │   │   │
+│   │   │   ├── views/                    # 页面视图
+│   │   │   │   ├── Home.vue
+│   │   │   │   ├── Editor.vue
+│   │   │   │   ├── Tools/
+│   │   │   │   │   ├── Merge.vue
+│   │   │   │   │   ├── Split.vue
+│   │   │   │   │   ├── Convert.vue
+│   │   │   │   │   ├── Compress.vue
+│   │   │   │   │   ├── Ocr.vue
+│   │   │   │   │   ├── Security.vue
+│   │   │   │   │   ├── Watermark.vue
+│   │   │   │   │   ├── Extract.vue
+│   │   │   │   │   └── Batch.vue
+│   │   │   │   ├── Settings/
+│   │   │   │   │   ├── Settings.vue
+│   │   │   │   │   ├── General.vue
+│   │   │   │   │   ├── Appearance.vue
+│   │   │   │   │   ├── Shortcuts.vue
+│   │   │   │   │   ├── Language.vue
+│   │   │   │   │   ├── Storage.vue
+│   │   │   │   │   ├── Ai.vue
+│   │   │   │   │   └── About.vue
+│   │   │   │   ├── Workflow/
+│   │   │   │   │   ├── WorkflowList.vue
+│   │   │   │   │   ├── WorkflowEditor.vue
+│   │   │   │   │   └── WorkflowRun.vue
+│   │   │   │   ├── Plugin/
+│   │   │   │   │   ├── PluginMarket.vue
+│   │   │   │   │   ├── PluginInstalled.vue
+│   │   │   │   │   └── PluginSettings.vue
+│   │   │   │   └── Error.vue
+│   │   │   │
+│   │   │   └── locales/                  # 国际化
+│   │   │       ├── index.ts
+│   │   │       ├── zh-CN/
+│   │   │       │   ├── common.json
+│   │   │       │   ├── pdf.json
+│   │   │       │   ├── tools.json
+│   │   │       │   ├── settings.json
+│   │   │       │   └── errors.json
+│   │   │       └── en-US/
+│   │   │           ├── common.json
+│   │   │           ├── pdf.json
+│   │   │           ├── tools.json
+│   │   │           ├── settings.json
+│   │   │           └── errors.json
+│   │   │
+│   │   ├── src-tauri/                    # Tauri原生代码
+│   │   │   ├── src/
+│   │   │   │   ├── main.rs               # 主入口
+│   │   │   │   ├── lib.rs
+│   │   │   │   ├── commands/             # Tauri命令
+│   │   │   │   │   ├── mod.rs
+│   │   │   │   │   ├── file.rs           # 文件操作
+│   │   │   │   │   ├── system.rs         # 系统操作
+│   │   │   │   │   ├── window.rs         # 窗口操作
+│   │   │   │   │   ├── menu.rs           # 菜单操作
+│   │   │   │   │   ├── tray.rs           # 托盘操作
+│   │   │   │   │   ├── update.rs         # 更新操作
+│   │   │   │   │   └── shell.rs          # Shell操作
+│   │   │   │   ├── utils/                # 工具函数
+│   │   │   │   │   ├── mod.rs
+│   │   │   │   │   ├── path.rs
+│   │   │   │   │   ├── process.rs
+│   │   │   │   │   └── platform.rs
+│   │   │   │   └── error.rs              # 错误处理
+│   │   │   ├── Cargo.toml
+│   │   │   ├── tauri.conf.json
+│   │   │   ├── icons/
+│   │   │   │   ├── icon.ico
+│   │   │   │   ├── icon.png
+│   │   │   │   └── icon.icns
+│   │   │   └── capabilities/
+│   │   │       └── default.json
+│   │   │
+│   │   ├── tests/                        # 测试文件
+│   │   │   ├── unit/
+│   │   │   │   ├── components/
+│   │   │   │   ├── composables/
+│   │   │   │   └── utils/
+│   │   │   ├── e2e/
+│   │   │   │   ├── pdf.spec.ts
+│   │   │   │   ├── tools.spec.ts
+│   │   │   │   └── workflow.spec.ts
+│   │   │   └── setup.ts
+│   │   │
+│   │   ├── index.html
+│   │   ├── vite.config.ts
+│   │   ├── tsconfig.json
+│   │   ├── tsconfig.node.json
+│   │   ├── package.json
+│   │   └── tailwind.config.js
+│   │
+│   └── server/                           # 后端服务
+│       │
+│       ├── app/                          # 应用核心
+│       │   │
+│       │   ├── main.py                   # 入口文件
+│       │   │
+│       │   ├── api/                      # API层
+│       │   │   ├── __init__.py
+│       │   │   ├── deps.py               # 依赖注入
+│       │   │   ├── router.py             # 路由注册
+│       │   │   ├── v1/                   # API v1
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── pdf.py            # PDF操作
+│       │   │   │   ├── ocr.py            # OCR识别
+│       │   │   │   ├── ai.py             # AI功能
+│       │   │   │   ├── convert.py        # 格式转换
+│       │   │   │   ├── security.py       # 安全功能
+│       │   │   │   ├── batch.py          # 批量处理
+│       │   │   │   ├── workflow.py       # 工作流
+│       │   │   │   ├── plugin.py         # 插件系统
+│       │   │   │   ├── system.py         # 系统信息
+│       │   │   │   └── websocket.py      # WebSocket
+│       │   │   └── middleware/           # 中间件
+│       │   │       ├── __init__.py
+│       │   │       ├── cors.py
+│       │   │       ├── logging.py
+│       │   │       ├── error_handler.py
+│       │   │       ├── rate_limit.py
+│       │   │       └── request_id.py
+│       │   │
+│       │   ├── core/                     # 核心模块
+│       │   │   │
+│       │   │   ├── pdf_engine/           # PDF引擎
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── engine.py         # 引擎主类
+│       │   │   │   ├── reader.py         # PDF读取
+│       │   │   │   ├── writer.py         # PDF写入
+│       │   │   │   ├── merger.py         # PDF合并
+│       │   │   │   ├── splitter.py       # PDF拆分
+│       │   │   │   ├── rotator.py        # PDF旋转
+│       │   │   │   ├── cropper.py        # PDF裁剪
+│       │   │   │   ├── compressor.py     # PDF压缩
+│       │   │   │   ├── repairer.py       # PDF修复
+│       │   │   │   ├── extractor/        # 内容提取
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── text.py       # 文本提取
+│       │   │   │   │   ├── image.py      # 图片提取
+│       │   │   │   │   ├── table.py      # 表格提取
+│       │   │   │   │   ├── annotation.py # 注释提取
+│       │   │   │   │   ├── bookmark.py   # 书签提取
+│       │   │   │   │   ├── link.py       # 链接提取
+│       │   │   │   │   ├── form.py       # 表单提取
+│       │   │   │   │   ├── metadata.py   # 元数据提取
+│       │   │   │   │   └── font.py       # 字体提取
+│       │   │   │   ├── editor/           # PDF编辑
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── text.py       # 文字编辑
+│       │   │   │   │   ├── image.py      # 图片编辑
+│       │   │   │   │   ├── page.py       # 页面编辑
+│       │   │   │   │   ├── watermark.py  # 水印编辑
+│       │   │   │   │   ├── header_footer.py
+│       │   │   │   │   ├── page_number.py
+│       │   │   │   │   └── redaction.py  # 涂黑
+│       │   │   │   ├── annotation/       # 注释处理
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── base.py
+│       │   │   │   │   ├── text.py
+│       │   │   │   │   ├── highlight.py
+│       │   │   │   │   ├── stamp.py
+│       │   │   │   │   ├── ink.py
+│       │   │   │   │   └── shape.py
+│       │   │   │   ├── form/             # 表单处理
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── reader.py
+│       │   │   │   │   ├── filler.py
+│       │   │   │   │   └── creator.py
+│       │   │   │   └── utils/            # 工具函数
+│       │   │   │       ├── __init__.py
+│       │   │   │       ├── page.py
+│       │   │   │       ├── coordinate.py
+│       │   │   │       ├── render.py
+│       │   │   │       └── optimize.py
+│       │   │   │
+│       │   │   ├── ocr_engine/           # OCR引擎
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── engine.py         # 引擎主类
+│       │   │   │   ├── base.py           # 基类
+│       │   │   │   ├── paddle_ocr.py     # PaddleOCR
+│       │   │   │   ├── tesseract_ocr.py  # Tesseract
+│       │   │   │   ├── easy_ocr.py       # EasyOCR
+│       │   │   │   ├── processor/        # 图像预处理
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── denoiser.py   # 降噪
+│       │   │   │   │   ├── enhancer.py   # 增强
+│       │   │   │   │   ├── binarizer.py  # 二值化
+│       │   │   │   │   ├── deskew.py     # 倾斜校正
+│       │   │   │   │   └── cropper.py    # 裁剪
+│       │   │   │   ├── postprocessor/    # 后处理
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── corrector.py  # 纠错
+│       │   │   │   │   ├── formatter.py  # 格式化
+│       │   │   │   │   └── translator.py # 翻译
+│       │   │   │   └── models/           # 模型管理
+│       │   │   │       ├── __init__.py
+│       │   │   │       ├── downloader.py
+│       │   │   │       └── manager.py
+│       │   │   │
+│       │   │   ├── ai_engine/            # AI引擎
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── engine.py         # 引擎主类
+│       │   │   │   ├── base.py           # 基类
+│       │   │   │   ├── openai.py         # OpenAI
+│       │   │   │   ├── ollama.py         # Ollama本地
+│       │   │   │   ├── anthropic.py      # Claude
+│       │   │   │   ├── features/         # AI功能
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── summary.py    # 摘要
+│       │   │   │   │   ├── translate.py  # 翻译
+│       │   │   │   │   ├── chat.py       # 对话
+│       │   │   │   │   ├── extract.py    # 提取
+│       │   │   │   │   ├── rewrite.py    # 重写
+│       │   │   │   │   ├── classify.py   # 分类
+│       │   │   │   │   └── embedding.py  # 向量化
+│       │   │   │   ├── rag/              # RAG系统
+│       │   │   │   │   ├── __init__.py
+│       │   │   │   │   ├── chunker.py    # 分块
+│       │   │   │   │   ├── embedder.py   # 嵌入
+│       │   │   │   │   ├── retriever.py  # 检索
+│       │   │   │   │   └── generator.py  # 生成
+│       │   │   │   └── prompts/          # 提示词
+│       │   │   │       ├── __init__.py
+│       │   │   │       ├── summary.py
+│       │   │   │       ├── translate.py
+│       │   │   │       └── chat.py
+│       │   │   │
+│       │   │   ├── convert_engine/       # 转换引擎
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── engine.py         # 引擎主类
+│       │   │   │   ├── base.py           # 基类
+│       │   │   │   ├── pdf_to_word.py    # PDF→Word
+│       │   │   │   ├── pdf_to_excel.py   # PDF→Excel
+│       │   │   │   ├── pdf_to_ppt.py     # PDF→PPT
+│       │   │   │   ├── pdf_to_image.py   # PDF→图片
+│       │   │   │   ├── pdf_to_html.py    # PDF→HTML
+│       │   │   │   ├── pdf_to_txt.py     # PDF→TXT
+│       │   │   │   ├── word_to_pdf.py    # Word→PDF
+│       │   │   │   ├── excel_to_pdf.py   # Excel→PDF
+│       │   │   │   ├── ppt_to_pdf.py     # PPT→PDF
+│       │   │   │   ├── image_to_pdf.py   # 图片→PDF
+│       │   │   │   ├── html_to_pdf.py    # HTML→PDF
+│       │   │   │   └── markdown_to_pdf.py
+│       │   │   │
+│       │   │   ├── security_engine/      # 安全引擎
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── engine.py         # 引擎主类
+│       │   │   │   ├── encryptor.py      # 加密
+│       │   │   │   ├── decryptor.py      # 解密
+│       │   │   │   ├── signer.py         # 数字签名
+│       │   │   │   ├── verifier.py       # 签名验证
+│       │   │   │   ├── permission.py     # 权限控制
+│       │   │   │   ├── watermark.py      # 水印
+│       │   │   │   ├── redaction.py      # 涂黑
+│       │   │   │   └── certificate/      # 证书管理
+│       │   │   │       ├── __init__.py
+│       │   │   │       ├── generator.py
+│       │   │   │       ├── manager.py
+│       │   │   │       └── validator.py
+│       │   │   │
+│       │   │   ├── compare_engine/       # 比较引擎
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── engine.py
+│       │   │   │   ├── text_diff.py      # 文本差异
+│       │   │   │   ├── visual_diff.py    # 视觉差异
+│       │   │   │   └── report.py         # 差异报告
+│       │   │   │
+│       │   │   └── batch_engine/         # 批量引擎
+│       │   │       ├── __init__.py
+│       │   │       ├── engine.py
+│       │   │       ├── task.py           # 任务定义
+│       │   │       ├── queue.py          # 任务队列
+│       │   │       ├── worker.py         # 工作进程
+│       │   │       └── scheduler.py      # 调度器
+│       │   │
+│       │   ├── models/                   # 数据模型
+│       │   │   ├── __init__.py
+│       │   │   ├── base.py               # 基础模型
+│       │   │   ├── pdf.py                # PDF模型
+│       │   │   ├── task.py               # 任务模型
+│       │   │   ├── workflow.py           # 工作流模型
+│       │   │   ├── plugin.py             # 插件模型
+│       │   │   ├── user.py               # 用户模型
+│       │   │   ├── settings.py           # 设置模型
+│       │   │   └── history.py            # 历史模型
+│       │   │
+│       │   ├── schemas/                  # Pydantic模式
+│       │   │   ├── __init__.py
+│       │   │   ├── pdf.py
+│       │   │   ├── ocr.py
+│       │   │   ├── ai.py
+│       │   │   ├── convert.py
+│       │   │   ├── security.py
+│       │   │   ├── batch.py
+│       │   │   ├── workflow.py
+│       │   │   ├── plugin.py
+│       │   │   ├── system.py
+│       │   │   └── common.py
+│       │   │
+│       │   ├── services/                 # 业务服务
+│       │   │   ├── __init__.py
+│       │   │   ├── pdf_service.py
+│       │   │   ├── ocr_service.py
+│       │   │   ├── ai_service.py
+│       │   │   ├── convert_service.py
+│       │   │   ├── security_service.py
+│       │   │   ├── batch_service.py
+│       │   │   ├── workflow_service.py
+│       │   │   ├── plugin_service.py
+│       │   │   ├── history_service.py
+│       │   │   └── cache_service.py
+│       │   │
+│       │   ├── tasks/                    # 异步任务
+│       │   │   ├── __init__.py
+│       │   │   ├── celery_app.py
+│       │   │   ├── pdf_tasks.py
+│       │   │   ├── ocr_tasks.py
+│       │   │   ├── ai_tasks.py
+│       │   │   ├── convert_tasks.py
+│       │   │   ├── batch_tasks.py
+│       │   │   └── workflow_tasks.py
+│       │   │
+│       │   ├── db/                       # 数据库
+│       │   │   ├── __init__.py
+│       │   │   ├── database.py           # 数据库连接
+│       │   │   ├── models/               # ORM模型
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── base.py
+│       │   │   │   ├── pdf.py
+│       │   │   │   ├── task.py
+│       │   │   │   ├── workflow.py
+│       │   │   │   ├── plugin.py
+│       │   │   │   ├── history.py
+│       │   │   │   └── settings.py
+│       │   │   ├── repositories/         # 数据仓库
+│       │   │   │   ├── __init__.py
+│       │   │   │   ├── base.py
+│       │   │   │   ├── pdf.py
+│       │   │   │   ├── task.py
+│       │   │   │   ├── workflow.py
+│       │   │   │   └── history.py
+│       │   │   └── migrations/           # 数据库迁移
+│       │   │       └── versions/
+│       │   │
+│       │   ├── utils/                    # 工具函数
+│       │   │   ├── __init__.py
+│       │   │   ├── file.py               # 文件操作
+│       │   │   ├── path.py               # 路径操作
+│       │   │   ├── image.py              # 图像处理
+│       │   │   ├── temp.py               # 临时文件
+│       │   │   ├── hash.py               # 哈希计算
+│       │   │   ├── validate.py           # 验证
+│       │   │   ├── logger.py             # 日志
+│       │   │   ├── error.py              # 错误处理
+│       │   │   ├── cache.py              # 缓存
+│       │   │   ├── config.py             # 配置
+│       │   │   ├── dependency.py         # 依赖检查
+│       │   │   └── constants.py          # 常量
+│       │   │
+│       │   ├── exceptions/               # 异常定义
+│       │   │   ├── __init__.py
+│       │   │   ├── base.py
+│       │   │   ├── pdf.py
+│       │   │   ├── ocr.py
+│       │   │   ├── ai.py
+│       │   │   ├── convert.py
+│       │   │   └── security.py
+│       │   │
+│       │   ├── plugins/                  # 插件系统
+│       │   │   ├── __init__.py
+│       │   │   ├── manager.py            # 插件管理器
+│       │   │   ├── loader.py             # 插件加载器
+│       │   │   ├── base.py               # 插件基类
+│       │   │   ├── hooks.py              # 钩子系统
+│       │   │   └── builtin/              # 内置插件
+│       │   │       ├── __init__.py
+│       │   │       ├── auto_save.py
+│       │   │       ├── backup.py
+│       │   │       └── cloud_sync.py
+│       │   │
+│       │   └── config/                   # 配置管理
+│       │       ├── __init__.py
+│       │       ├── settings.py           # 应用设置
+│       │       ├── logging.py            # 日志配置
+│       │       └── paths.py              # 路径配置
+│       │
+│       ├── tests/                        # 测试文件
+│       │   ├── __init__.py
+│       │   ├── conftest.py
+│       │   ├── unit/
+│       │   │   ├── test_pdf_engine.py
+│       │   │   ├── test_ocr_engine.py
+│       │   │   ├── test_ai_engine.py
+│       │   │   ├── test_convert_engine.py
+│       │   │   ├── test_security_engine.py
+│       │   │   └── test_utils.py
+│       │   ├── integration/
+│       │   │   ├── test_api.py
+│       │   │   ├── test_workflow.py
+│       │   │   └── test_batch.py
+│       │   └── fixtures/
+│       │       ├── sample.pdf
+│       │       └── sample.docx
+│       │
+│       ├── scripts/                      # 脚本
+│       │   ├── setup.py
+│       │   ├── download_models.py        # 下载模型
+│       │   └── check_deps.py             # 检查依赖
+│       │
+│       ├── requirements/
+│       │   ├── base.txt
+│       │   ├── dev.txt
+│       │   ├── gpu.txt                   # GPU支持
+│       │   └── ocr.txt                   # OCR依赖
+│       │
+│       ├── pyproject.toml
+│       ├── poetry.lock
+│       └── README.md
+│
+├── packages/                             # 共享包
+│   │
+│   ├── shared/                           # 共享类型和工具
+│   │
