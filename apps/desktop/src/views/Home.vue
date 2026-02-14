@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { open } from '@tauri-apps/plugin-dialog'
+import { useFilePicker } from '@/composables/useFilePicker'
 
 const router = useRouter()
+const { pickFile } = useFilePicker()
 const isDragging = ref(false)
 
 const quickActions = [
@@ -17,15 +18,19 @@ const quickActions = [
 
 async function openFile() {
   try {
-    const selected = await open({
+    const result = await pickFile({
       multiple: false,
       filters: [
         { name: 'PDF', extensions: ['pdf'] },
         { name: 'All Files', extensions: ['*'] },
       ],
     })
-    if (selected) {
-      router.push({ path: '/editor', query: { file: selected as string } })
+    if (result) {
+      if (result.file) {
+        router.push({ path: '/editor', query: { file: result.name, mode: 'web' } })
+      } else {
+        router.push({ path: '/editor', query: { file: result.path } })
+      }
     }
   } catch (error) {
     console.error('Failed to open file:', error)
@@ -48,7 +53,7 @@ function handleDrop(e: DragEvent) {
   if (files && files.length > 0) {
     const file = files[0]
     if (file.name.endsWith('.pdf')) {
-      router.push({ path: '/editor', query: { file: file.path } })
+      router.push({ path: '/editor', query: { file: file.name, mode: 'web' } })
     }
   }
 }
