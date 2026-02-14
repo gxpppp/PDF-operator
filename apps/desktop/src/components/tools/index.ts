@@ -1,0 +1,5 @@
+export { default as ColorPicker } from './ColorPicker/ColorPicker.vue'
+export { default as Slider } from './Slider/Slider.vue'
+export { default as DatePicker } from './DatePicker/DatePicker.vue'
+export { default as Upload } from './Upload/Upload.vue'
+export { default as Rate } from './Rate/Rate.vue'
