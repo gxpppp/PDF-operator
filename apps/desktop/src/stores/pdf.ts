@@ -32,14 +32,16 @@ export const usePdfStore = defineStore('pdf', () => {
   const searchText = ref('')
   const searchResults = ref<number[]>([])
   const currentSearchIndex = ref(0)
+  const isLoading = ref(false)
+  const error = ref<string | null>(null)
   
-  const isLoaded = computed(() => file.value !== null)
+  const isLoaded = computed(() => file.value !== null || filePath.value !== null)
   const pageCount = computed(() => pages.value.length)
 
   function setFile(newFile: File | null, path: string | null) {
     file.value = newFile
     filePath.value = path
-    if (!newFile) {
+    if (!newFile && !path) {
       pages.value = []
       metadata.value = null
       currentPage.value = 1
@@ -96,6 +98,21 @@ export const usePdfStore = defineStore('pdf', () => {
     return null
   }
 
+  function clear() {
+    file.value = null
+    filePath.value = null
+    pages.value = []
+    metadata.value = null
+    currentPage.value = 1
+    zoom.value = 1
+    rotation.value = 0
+    searchText.value = ''
+    searchResults.value = []
+    currentSearchIndex.value = 0
+    isLoading.value = false
+    error.value = null
+  }
+
   return {
     file,
     filePath,
@@ -107,6 +124,8 @@ export const usePdfStore = defineStore('pdf', () => {
     searchText,
     searchResults,
     currentSearchIndex,
+    isLoading,
+    error,
     isLoaded,
     pageCount,
     setFile,
@@ -119,5 +138,6 @@ export const usePdfStore = defineStore('pdf', () => {
     setSearchResults,
     nextSearchResult,
     prevSearchResult,
+    clear,
   }
 })
