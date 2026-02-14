@@ -28,7 +28,10 @@ export function useFilePicker() {
   async function pickFile(options: FilePickerOptions = {}): Promise<FilePickerResult | null> {
     isLoading.value = true
     error.value = null
+    
     try {
+      let result: FilePickerResult | null = null
+      
       if (isTauri()) {
         const { open } = await import('@tauri-apps/plugin-dialog')
         const selected = await open({
@@ -38,33 +41,30 @@ export function useFilePicker() {
           defaultPath: options.defaultPath,
           title: options.title
         })
-        if (!selected) return null
-
-        if (options.directory) {
-          selectedDirectory.value = selected as string
-          return { path: selected as string, name: (selected as string).split(/[/\\]/).pop() || '', extension: '' }
+        if (selected && !options.directory) {
+          const path = selected as string
+          result = createFileResult(path)
+          selectedFiles.value = [result]
         }
-
-        const path = selected as string
-        const result = createFileResult(path)
-        selectedFiles.value = [result]
-        return result
       } else {
-        return await pickFileWeb(options)
+        result = await pickFileWeb(options)
       }
+      
+      return result
     } catch (err) {
       error.value = (err as Error).message
+      console.error('pickFile error:', err)
       return null
     } finally {
       isLoading.value = false
     }
   }
 
-  async function pickFileWeb(options: FilePickerOptions = {}): Promise<FilePickerResult | null> {
+  function pickFileWeb(options: FilePickerOptions = {}): Promise<FilePickerResult | null> {
     return new Promise((resolve) => {
       const input = document.createElement('input')
       input.type = 'file'
-      input.style.display = 'none'
+      input.style.cssText = 'position: absolute; top: -9999px; left: -9999px; opacity: 0;'
       
       if (options.multiple) {
         input.multiple = true
@@ -72,14 +72,32 @@ export function useFilePicker() {
       
       if (options.filters && options.filters.length > 0) {
         const acceptTypes = options.filters
-          .flatMap(f => f.extensions.map(ext => `.${ext}`))
+          .flatMap(f => f.extensions.map(ext => ext === '*' ? '' : `.${ext}`))
+          .filter(Boolean)
           .join(',')
-        input.accept = acceptTypes
+        if (acceptTypes) {
+          input.accept = acceptTypes
+        }
+      }
+
+      let resolved = false
+
+      const cleanup = () => {
+        if (!resolved) {
+          resolved = true
+          document.body.removeChild(input)
+        }
       }
 
       input.onchange = (event) => {
+        if (resolved) return
+        resolved = true
+        
         const files = (event.target as HTMLInputElement).files
+        console.log('Files selected:', files)
+        
         if (!files || files.length === 0) {
+          cleanup()
           resolve(null)
           return
         }
@@ -92,24 +110,30 @@ export function useFilePicker() {
           file: file
         }
         selectedFiles.value = [result]
+        console.log('File result:', result)
+        cleanup()
         resolve(result)
-        document.body.removeChild(input)
       }
 
       input.oncancel = () => {
+        console.log('File picker cancelled')
+        cleanup()
         resolve(null)
-        document.body.removeChild(input)
       }
 
       document.body.appendChild(input)
-      input.click()
+      
+      setTimeout(() => input.click(), 0)
     })
   }
 
   async function pickFiles(options: Omit<FilePickerOptions, 'multiple'> = {}): Promise<FilePickerResult[]> {
     isLoading.value = true
     error.value = null
+    
     try {
+      let results: FilePickerResult[] = []
+      
       if (isTauri()) {
         const { open } = await import('@tauri-apps/plugin-dialog')
         const selected = await open({
@@ -119,14 +143,16 @@ export function useFilePicker() {
           defaultPath: options.defaultPath,
           title: options.title
         })
-        if (!selected) return []
-        const paths = Array.isArray(selected) ? selected : [selected]
-        const results = paths.map(createFileResult)
-        selectedFiles.value = results
-        return results
+        if (selected) {
+          const paths = Array.isArray(selected) ? selected : [selected]
+          results = paths.map(createFileResult)
+          selectedFiles.value = results
+        }
       } else {
-        return await pickFilesWeb(options)
+        results = await pickFilesWeb(options)
       }
+      
+      return results
     } catch (err) {
       error.value = (err as Error).message
       return []
@@ -135,23 +161,39 @@ export function useFilePicker() {
     }
   }
 
-  async function pickFilesWeb(options: Omit<FilePickerOptions, 'multiple'> = {}): Promise<FilePickerResult[]> {
+  function pickFilesWeb(options: Omit<FilePickerOptions, 'multiple'> = {}): Promise<FilePickerResult[]> {
     return new Promise((resolve) => {
       const input = document.createElement('input')
       input.type = 'file'
-      input.style.display = 'none'
+      input.style.cssText = 'position: absolute; top: -9999px; left: -9999px; opacity: 0;'
       input.multiple = true
       
       if (options.filters && options.filters.length > 0) {
         const acceptTypes = options.filters
-          .flatMap(f => f.extensions.map(ext => `.${ext}`))
+          .flatMap(f => f.extensions.map(ext => ext === '*' ? '' : `.${ext}`))
+          .filter(Boolean)
           .join(',')
-        input.accept = acceptTypes
+        if (acceptTypes) {
+          input.accept = acceptTypes
+        }
+      }
+
+      let resolved = false
+
+      const cleanup = () => {
+        if (!resolved) {
+          resolved = true
+          document.body.removeChild(input)
+        }
       }
 
       input.onchange = (event) => {
+        if (resolved) return
+        resolved = true
+        
         const files = (event.target as HTMLInputElement).files
         if (!files || files.length === 0) {
+          cleanup()
           resolve([])
           return
         }
@@ -163,17 +205,17 @@ export function useFilePicker() {
           file: file
         }))
         selectedFiles.value = results
+        cleanup()
         resolve(results)
-        document.body.removeChild(input)
       }
 
       input.oncancel = () => {
+        cleanup()
         resolve([])
-        document.body.removeChild(input)
       }
 
       document.body.appendChild(input)
-      input.click()
+      setTimeout(() => input.click(), 0)
     })
   }
 
