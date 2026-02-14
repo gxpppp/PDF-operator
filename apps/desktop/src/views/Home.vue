@@ -2,9 +2,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFilePicker } from '@/composables/useFilePicker'
+import { usePdfStore } from '@/stores/pdf'
 
 const router = useRouter()
 const { pickFile } = useFilePicker()
+const pdfStore = usePdfStore()
 const isDragging = ref(false)
 
 const quickActions = [
@@ -27,8 +29,10 @@ async function openFile() {
     })
     if (result) {
       if (result.file) {
-        router.push({ path: '/editor', query: { file: result.name, mode: 'web' } })
+        pdfStore.setFile(result.file, result.name)
+        router.push({ path: '/editor', query: { mode: 'web' } })
       } else {
+        pdfStore.setFile(null, result.path)
         router.push({ path: '/editor', query: { file: result.path } })
       }
     }
@@ -53,7 +57,8 @@ function handleDrop(e: DragEvent) {
   if (files && files.length > 0) {
     const file = files[0]
     if (file.name.endsWith('.pdf')) {
-      router.push({ path: '/editor', query: { file: file.name, mode: 'web' } })
+      pdfStore.setFile(file, file.name)
+      router.push({ path: '/editor', query: { mode: 'web' } })
     }
   }
 }
