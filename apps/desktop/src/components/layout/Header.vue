@@ -1,25 +1,30 @@
 <script setup lang="ts">
 import { useAppStore } from '@/stores/app'
 import { usePdfStore } from '@/stores/pdf'
-import { open } from '@tauri-apps/plugin-dialog'
+import { useFilePicker } from '@/composables/useFilePicker'
 import { ref } from 'vue'
 
 const appStore = useAppStore()
 const pdfStore = usePdfStore()
+const { pickFile } = useFilePicker()
 
 const isDropdownOpen = ref(false)
 
 async function openFile() {
   try {
-    const selected = await open({
+    const result = await pickFile({
       multiple: false,
       filters: [
         { name: 'PDF', extensions: ['pdf'] },
         { name: 'All Files', extensions: ['*'] },
       ],
     })
-    if (selected) {
-      appStore.setCurrentFile(selected as string)
+    if (result) {
+      if (result.file) {
+        appStore.setCurrentFile(result.name)
+      } else {
+        appStore.setCurrentFile(result.path)
+      }
     }
   } catch (error) {
     console.error('Failed to open file:', error)
