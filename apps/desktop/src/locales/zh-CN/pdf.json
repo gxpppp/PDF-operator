@@ -1,0 +1,81 @@
+{
+  "pdf": {
+    "title": "PDF",
+    "open": "打开 PDF",
+    "save": "保存",
+    "saveAs": "另存为",
+    "close": "关闭",
+    "print": "打印",
+    "properties": "属性",
+    "metadata": {
+      "title": "标题",
+      "author": "作者",
+      "subject": "主题",
+      "keywords": "关键词",
+      "creator": "创建者",
+      "producer": "生成器",
+      "creationDate": "创建日期",
+      "modificationDate": "修改日期",
+      "pages": "页数",
+      "fileSize": "文件大小"
+    },
+    "viewer": {
+      "zoom": "缩放",
+      "zoomIn": "放大",
+      "zoomOut": "缩小",
+      "fitWidth": "适合宽度",
+      "fitPage": "适合页面",
+      "actualSize": "实际大小",
+      "rotateLeft": "向左旋转",
+      "rotateRight": "向右旋转",
+      "singlePage": "单页",
+      "continuous": "连续",
+      "twoPages": "双页",
+      "thumbnails": "缩略图",
+      "outline": "大纲",
+      "bookmarks": "书签",
+      "annotations": "注释",
+      "search": "搜索",
+      "previousPage": "上一页",
+      "nextPage": "下一页",
+      "goToPage": "跳转到页面",
+      "pageOf": "第 {current} 页，共 {total} 页"
+    },
+    "editor": {
+      "edit": "编辑",
+      "addText": "添加文本",
+      "addImage": "添加图片",
+      "addShape": "添加形状",
+      "highlight": "高亮",
+      "underline": "下划线",
+      "strikethrough": "删除线",
+      "comment": "注释",
+      "signature": "签名",
+      "redact": "涂黑",
+      "undo": "撤销",
+      "redo": "重做"
+    },
+    "tools": {
+      "merge": "合并",
+      "split": "拆分",
+      "convert": "转换",
+      "compress": "压缩",
+      "ocr": "OCR识别",
+      "watermark": "水印",
+      "encrypt": "加密",
+      "decrypt": "解密",
+      "extract": "提取"
+    }
+  },
+  "errors": {
+    "fileNotFound": "文件未找到",
+    "invalidPdf": "无效的 PDF 文件",
+    "passwordRequired": "需要密码",
+    "incorrectPassword": "密码错误",
+    "fileTooLarge": "文件太大",
+    "unsupportedFormat": "不支持的格式",
+    "processingFailed": "处理失败",
+    "saveFailed": "保存失败",
+    "printFailed": "打印失败"
+  }
+}
